@@ -5,7 +5,7 @@ import {app} from "./app.js"
 import error from "express"
 
 dotenv.config({
-    path: './env'
+    path: './.env'
 })
 
 
