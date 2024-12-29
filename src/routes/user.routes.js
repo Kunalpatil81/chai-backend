@@ -24,5 +24,10 @@ router.route("/login").post(loginUser)
 // secured routes
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/refresh-token").post(refreshAccessToken)
+router.route("/password").post(changeCurrentPassword)
+router.route("/user").post(getCurrentUser)
+router.route("/account").post(updateAccountDetails)
+router.route("/avatar").post(updateUserAvatar)
+router.route("/cover-image").post(updateUserCoverImage)
 
 export default router
