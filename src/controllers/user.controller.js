@@ -4,6 +4,7 @@ import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
+import mongoose from "mongoose";
 
 
 
@@ -112,7 +113,6 @@ const loginUser = asyncHandler(async (req, res)=> {
 
     // 1. get data(username,email,password)
     const {email, username, password} = req.body
-    console.log(email,password)
 
     if (!(username || email)) {
         throw new ApiError(400, "username or email is required")
@@ -167,8 +167,8 @@ const logoutUser = asyncHandler(async (req, res)=> {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set: {
-                refreshToken: undefined
+            $unset: {
+                refreshToken: 1
             }
         },
         {
@@ -218,7 +218,7 @@ const refreshAccessToken = asyncHandler(async (req, res)=>{
         return res
         .status(200)
         .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
+        .cookie("refreshToken", newRefreshToken, options)
         .json(
             new ApiResponse(
                 200,
@@ -449,7 +449,7 @@ const getWatchHistory = asyncHandler(async (req, res)=> {
     ])
 
     return res
-    .ststus(200)
+    .status(200)
     .json(new ApiResponse(200, user[0].watchHistory,
         "Watch history fetched successfully"
     ))
