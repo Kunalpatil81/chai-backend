@@ -4,6 +4,7 @@ import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 import { application } from "express"
+import { Video } from "../models/video.model.js"
 
 
 //TODO: create playlist
@@ -102,7 +103,7 @@ const getPlaylistById = asyncHandler(async (req, res) => {
             $lookup: {
                 from: "videos",
                 localField: "videos",
-                freignField: "_id",
+                foreignField: "_id",
                 as: "videos"
             }
         },

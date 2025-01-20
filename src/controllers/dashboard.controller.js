@@ -10,10 +10,10 @@ const getChannelStats = asyncHandler(async (req, res) => {
     // TODO: Get the channel stats like total video views, total subscribers, total videos, total likes etc.
     const userId = req.user?._id
 
-    const totoalSubscribers = await Subscription.aggregate([
+    const totalSubscribers = await Subscription.aggregate([
         {
             $match: {
-                _id: new mongoose.types.ObjectId(userId)
+                _id: new mongoose.Types.ObjectId(userId)
             }
         },
         {
